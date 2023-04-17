@@ -20,6 +20,17 @@ public class PersonServices {
     Person person = personRepository.save(new Person(data));
     return new PersonResponseDTO(person.getId(), person.getName(), person.getDate_of_birth());
   }
+
+  public PersonResponseDTO update(String uuid, PersonRequestDTO data) {
+    Person person = findPersonById(uuid);
+
+    person.setName(data.name() != null ? data.name() : person.getName());
+    person.setDate_of_birth(data.date_of_birth() != null ? data.date_of_birth() : person.getDate_of_birth());
+
+    personRepository.save(person);
+    return new PersonResponseDTO(person.getId(), person.getName(), person.getDate_of_birth());
+  }
+
   public List<PersonResponseDTO> findAll() {
     return personRepository.findAll().stream().map(PersonResponseDTO::new).toList();
   }

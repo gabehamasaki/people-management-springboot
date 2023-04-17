@@ -1,6 +1,8 @@
 package com.gabe.peopleManagement.services;
 
+import com.gabe.peopleManagement.dtos.address.AddressRequestDTO;
 import com.gabe.peopleManagement.dtos.address.AddressResponseDTO;
+import com.gabe.peopleManagement.dtos.address.AddressUpdateRequestDTO;
 import com.gabe.peopleManagement.entities.Address;
 import com.gabe.peopleManagement.repositories.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,21 @@ public class AddressServices {
 
 
   public AddressResponseDTO create(Address address) {
+    return new AddressResponseDTO(addressRepository.save(address));
+  }
+
+  public AddressResponseDTO update(Long id, AddressUpdateRequestDTO data) {
+    Address address = addressRepository.findById(id).get();
+
+    System.out.println(data);
+
+    address.setLogradouro(data.address() != null ? data.address() : address.getLogradouro());
+    address.setCEP(data.CEP() != null ? data.CEP() : address.getCEP());
+    address.setNumber(data.number() != null ? Integer.parseInt(data.number()) : address.getNumber());
+    address.setCity(data.city() != null ? data.city() : address.getCity());
+    address.setPrimary(data.isPrimary() != null ? Boolean.parseBoolean(data.isPrimary()): address.isPrimary());
+
+
     return new AddressResponseDTO(addressRepository.save(address));
   }
 

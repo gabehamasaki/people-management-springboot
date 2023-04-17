@@ -1,4 +1,6 @@
 package com.gabe.peopleManagement.dtos.person;
 
-public record PersonRequestDTO(String name, String date_of_birth) {
+import jakarta.annotation.Nullable;
+
+public record PersonRequestDTO(@Nullable String name, @Nullable String date_of_birth) {
 }

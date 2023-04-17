@@ -2,6 +2,7 @@ package com.gabe.peopleManagement.controllers;
 
 import com.gabe.peopleManagement.dtos.address.AddressRequestDTO;
 import com.gabe.peopleManagement.dtos.address.AddressResponseDTO;
+import com.gabe.peopleManagement.dtos.address.AddressUpdateRequestDTO;
 import com.gabe.peopleManagement.entities.Address;
 import com.gabe.peopleManagement.entities.Person;
 import com.gabe.peopleManagement.services.AddressServices;
@@ -31,6 +32,11 @@ public class AddressController {
     return addressServices.findPrimaryAddressByOwnerId(uuid);
   }
 
+
+  @PatchMapping("/{id}")
+  public AddressResponseDTO updateAddress(@PathVariable("id") Long id, @RequestBody AddressUpdateRequestDTO data) {
+    return addressServices.update(id, data);
+  }
 
   @PostMapping("/{uuid}")
   public AddressResponseDTO addAddress(@PathVariable("uuid") String uuid, @RequestBody AddressRequestDTO data) {
