@@ -1,6 +1,7 @@
 package com.gabe.peopleManagement.services;
 
 import com.gabe.peopleManagement.dtos.person.PersonRequestDTO;
+import com.gabe.peopleManagement.dtos.person.PersonRequestUpdateDTO;
 import com.gabe.peopleManagement.dtos.person.PersonResponseDTO;
 import com.gabe.peopleManagement.entities.Person;
 import com.gabe.peopleManagement.repositories.PersonRepository;
@@ -21,7 +22,7 @@ public class PersonServices {
     return new PersonResponseDTO(person.getId(), person.getName(), person.getDate_of_birth());
   }
 
-  public PersonResponseDTO update(String uuid, PersonRequestDTO data) {
+  public PersonResponseDTO update(String uuid, PersonRequestUpdateDTO data) {
     Person person = findPersonById(uuid);
 
     person.setName(data.name() != null ? data.name() : person.getName());

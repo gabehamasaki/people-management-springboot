@@ -1,6 +1,5 @@
 package com.gabe.peopleManagement.services;
 
-import com.gabe.peopleManagement.dtos.address.AddressRequestDTO;
 import com.gabe.peopleManagement.dtos.address.AddressResponseDTO;
 import com.gabe.peopleManagement.dtos.address.AddressUpdateRequestDTO;
 import com.gabe.peopleManagement.entities.Address;
@@ -23,9 +22,10 @@ public class AddressServices {
   }
 
   public AddressResponseDTO update(Long id, AddressUpdateRequestDTO data) {
-    Address address = addressRepository.findById(id).get();
 
-    System.out.println(data);
+    if (addressRepository.findById(id).isEmpty()) return null;
+
+    Address address = addressRepository.findById(id).get();
 
     address.setLogradouro(data.address() != null ? data.address() : address.getLogradouro());
     address.setCEP(data.CEP() != null ? data.CEP() : address.getCEP());
